@@ -1,0 +1,300 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ *
+ * IDM Valley — Corporate Light Theme tokens
+ * Single source of truth for the base layer. The WebGL canvas clear
+ * colour is derived from --color-snow in src/three/Scene.jsx.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Base layer */
+  --color-snow: #fbfbfb;
+  --color-snow-sunk: #f4f5f7;
+  --color-snow-raised: #ffffff;
+
+  /* Type */
+  --color-ink: #111111; /* headers — crisp high-contrast charcoal */
+  --color-body: #444444; /* body layouts — dark slate */
+  --color-muted: #6c7480;
+
+  /* Structure */
+  --color-rule: #e6e8ec;
+  --color-rule-strong: #d3d7de;
+
+  /* Brand accent — IDM Valley Electric Denim Blue */
+  --color-signal: #0d47c7;
+  --color-signal-soft: #e7eeff;
+  --color-signal-deep: #072f8a;
+  --color-jordy: #8ab0f5;
+
+  /* Neon Cyan utility spectrum.
+     `neon` is the display/glow tone — it sits at roughly 2.9:1 on snow, so it
+     is for LARGE text, 3D emissives and fills only. `neon-ink` is the text-safe
+     member of the family at 4.6:1; use it for anything at body size. */
+  --color-neon: #22d3ee;
+  --color-neon-mid: #06b6d4;
+  --color-neon-ink: #0e7490;
+  --color-neon-soft: #e2fbff;
+
+  /* Deep steel — the 3D frame, and high-contrast UI edges. */
+  --color-steel: #1e2a3a;
+
+  /* Satin metal — matches the FocalModels material palette */
+  --color-satin: #e9ebef;
+  --color-satin-edge: #b9bfc9;
+
+  --font-display: 'Inter Tight', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --shadow-lift: 0 1px 2px rgb(17 17 17 / 0.04), 0 12px 32px -12px rgb(17 17 17 / 0.12);
+  --shadow-lift-lg:
+    0 2px 4px rgb(17 17 17 / 0.05), 0 28px 60px -20px rgb(17 17 17 / 0.18);
+}
+
+/* ------------------------------------------------------------------ *
+ * Background Grid Matrix
+ * Engineering grid simulated purely with linear-gradient lines so it
+ * costs one paint and zero image requests. Two stacked frequencies:
+ * a 16px hairline sub-grid and a 96px primary grid.
+ * ------------------------------------------------------------------ */
+@utility grid-matrix {
+  background-color: var(--color-snow);
+  background-image:
+    linear-gradient(to right, rgb(13 71 199 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(13 71 199 / 0.07) 1px, transparent 1px),
+    linear-gradient(to right, rgb(13 71 199 / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(13 71 199 / 0.03) 1px, transparent 1px);
+  background-size:
+    96px 96px,
+    96px 96px,
+    16px 16px,
+    16px 16px;
+  background-position: -1px -1px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Ambient chroma-shift mesh
+ *
+ * Four radial washes between the grid and the WebGL canvas: Electric Denim
+ * from the top-right margin, Neon Cyan from the bottom-left, a Jordy-Blue
+ * body on the right flank and a wide denim tie across the upper left.
+ *
+ * Alphas run 5-13%, an order of magnitude above the previous 2-3% pass, so
+ * the page reads as tinted rather than merely deep. The ceiling is set by
+ * body text: #444444 over the strongest wash still clears 4.5:1, which is
+ * what stops this becoming a coloured page with unreadable copy.
+ *
+ * One static painted layer — no animation, no filter — so it costs a single
+ * paint at load and nothing per frame.
+ * ------------------------------------------------------------------ */
+@utility ambient-mesh {
+  background-image:
+    radial-gradient(58rem 44rem at 86% -8%, rgb(13 71 199 / 0.1), transparent 64%),
+    radial-gradient(52rem 40rem at 4% 102%, rgb(34 211 238 / 0.11), transparent 62%),
+    radial-gradient(46rem 36rem at 96% 62%, rgb(138 176 245 / 0.13), transparent 66%),
+    radial-gradient(64rem 48rem at 22% 18%, rgb(13 71 199 / 0.05), transparent 70%);
+}
+
+/* Radial vignette that fades the grid out toward the page edges. */
+@utility grid-matrix-mask {
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 38%, #000 35%, transparent 100%);
+}
+
+/* ------------------------------------------------------------------ *
+ * Navbar hover glint
+ *
+ * A specular highlight that tracks the cursor across a nav tab. Position
+ * comes from --glint-x / --glint-y, written straight onto the element by the
+ * pointer handler — no React state, so a mousemove costs one style recalc on
+ * one element and never touches the render loop.
+ *
+ * NOTE on colour: a white glint is invisible against the #fbfbfb navbar, so
+ * this is a tinted specular — signal blue at the core fading through cyan —
+ * which is what actually reads on the light theme.
+ * ------------------------------------------------------------------ */
+@property --glint-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --glint-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+/* Promotion is applied by the caller under group-hover, not here: seven
+   permanently promoted glint layers would outweigh what they buy. */
+@utility nav-glint {
+  background-image: radial-gradient(
+    circle 56px at var(--glint-x) var(--glint-y),
+    rgb(13 71 199 / 0.16),
+    rgb(34 211 238 / 0.12) 45%,
+    transparent 80%
+  );
+}
+
+/* Diagonal blueprint hatch for callout panels. */
+@utility hatch-matrix {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(13 71 199 / 0.09) 0px,
+    rgb(13 71 199 / 0.09) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * Compositor promotion
+ * Every element we animate on scroll gets its own GPU layer so the
+ * 120 FPS budget is spent in the WebGL loop, not in layout/paint.
+ * ------------------------------------------------------------------ */
+/* Permanent promotion. Reserve for the few elements that composite
+   continuously — the WebGL wrapper, the fixed header, the active underline,
+   the crossfading contact panels. */
+@utility gpu-layer {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Promotion scoped to the interaction that needs it.
+   `will-change` is a standing reservation, not a free hint: each promoted
+   element holds its own GPU texture for the whole session. The cards and
+   buttons across this site only animate under the pointer, so they take the
+   layer on hover/focus and hand it straight back — which matters most on
+   mobile, where dozens of permanent layers would cost real memory for
+   transitions a touch device never even plays. */
+@utility gpu-hover {
+  backface-visibility: hidden;
+
+  &:hover,
+  &:focus-visible {
+    will-change: transform, opacity;
+  }
+}
+
+/* Progress bar for the contact form uplink sequence. Transform-only, so it
+   animates entirely on the compositor. */
+@keyframes uplink-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@utility uplink-bar {
+  transform-origin: left center;
+  will-change: transform;
+  /* Amber-gold -> electric-orange transmission rail. Deliberately off-brand
+     from the blue UI: the in-flight state should not be mistaken for a
+     normal interactive control. */
+  background-image: linear-gradient(
+    90deg,
+    #f59e0b 0%,
+    #fbbf24 28%,
+    #fb923c 68%,
+    #f97316 100%
+  );
+  animation: uplink-fill 2s cubic-bezier(0.22, 0.9, 0.3, 1) forwards;
+}
+
+/* Save-as-PDF from the quote calculator: print only the itemised quote.
+   The quote is portalled to <body>, so hiding every other body child removes
+   the whole site from the page flow — no blank trailing pages. */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  body > *:not(.print-quote) {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111111;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Fixed navbar height + breathing room for anchor jumps. */
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-snow);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: #ffffff;
+  }
+
+  /* Gradient-clipped text relies on a painted background. In forced-colors
+     mode (Windows High Contrast) backgrounds are stripped, which would leave
+     `text-transparent` genuinely invisible — so hand the text back to the
+     system colour. Same for print, where the gradient would not survive. */
+  @media (forced-colors: active) {
+    .bg-clip-text {
+      background-image: none !important;
+      color: CanvasText !important;
+      -webkit-text-fill-color: CanvasText !important;
+    }
+  }
+
+  @media print {
+    .bg-clip-text {
+      background-image: none !important;
+      color: #111111 !important;
+      -webkit-text-fill-color: #111111 !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
