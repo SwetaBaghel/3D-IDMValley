@@ -1,12 +1,8 @@
 import { clients, stats } from '../../data/siteContent'
-import CountUp from '../ui/CountUp'
 import GradientText from '../ui/GradientText'
 import Section from '../ui/Section'
 
-const delivered = stats.find((s) => s.label === 'Projects Delivered')
 const clientCount = stats.find((s) => s.label === 'Happy Clients')
-const experience = stats.find((s) => s.label === 'Years of Experience')
-const team = stats.find((s) => s.label === 'Team Members')
 
 /**
  * Portfolio — clients marquee strip.

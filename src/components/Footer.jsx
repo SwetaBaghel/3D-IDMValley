@@ -105,19 +105,13 @@ export default function Footer({ credits = false }) {
             <a
               href="/"
               aria-label="IDM Valley — home"
-              className="group inline-flex items-baseline gap-1 font-display text-[17px] font-bold leading-none"
+              className="inline-flex items-center"
             >
-              <span className="flex items-baseline">
-                <span className="text-rule-strong transition-colors duration-200 group-hover:text-signal/50">
-                  [
-                </span>
-                <span className="px-0.5 tracking-[0.18em] text-signal">IDM</span>
-                <span className="text-rule-strong transition-colors duration-200 group-hover:text-signal/50">
-                  ]
-                </span>
-              </span>
-              <span className="text-[10px] text-neon-ink">&#10005;</span>
-              <span className="tracking-[0.18em] text-ink">VALLEY</span>
+              <img
+                src="/logo-removebg-preview.png"
+                alt="IDM Valley"
+                className="h-24 w-auto object-contain"
+              />
             </a>
 
             <p className="mt-4 max-w-[22rem] text-[13.5px] leading-relaxed text-body">
