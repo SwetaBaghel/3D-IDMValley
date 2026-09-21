@@ -56,9 +56,9 @@ export default function App({ model = 'screen' }) {
         {model === 'bracket' ? <HeroCarousel /> : <Home />}
         <About />
         <Services />
-        <Portfolio />
         <Pricing />
         <Contact planeSlot={model === 'bracket'} />
+        <Portfolio />
       </main>
 
       <Footer credits={model === 'bracket'} />

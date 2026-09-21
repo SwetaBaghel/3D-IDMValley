@@ -1,64 +1,79 @@
 import { clients, stats } from '../../data/siteContent'
+import CountUp from '../ui/CountUp'
 import GradientText from '../ui/GradientText'
 import Section from '../ui/Section'
-import SectionHeading from '../ui/SectionHeading'
 
-const delivered = stats.find((stat) => stat.label === 'Projects Delivered')
-const clientCount = stats.find((stat) => stat.label === 'Happy Clients')
+const delivered = stats.find((s) => s.label === 'Projects Delivered')
+const clientCount = stats.find((s) => s.label === 'Happy Clients')
+const experience = stats.find((s) => s.label === 'Years of Experience')
+const team = stats.find((s) => s.label === 'Team Members')
 
 /**
- * Portfolio — the client roster.
+ * Portfolio — clients marquee strip.
  *
- * Deliberately names only. idmvalley.com publishes client logos without
- * engagement detail, so nothing here attributes a service line or an outcome
- * to a real brand. When verified case studies exist, add a `caseStudies`
- * export to siteContent and render them as a separate block below this grid —
- * do not bolt claims onto these cards.
+ * A full-bleed horizontal ticker showing the client roster, preceded by a
+ * centred heading and followed by a four-stat summary row. The marquee
+ * duplicates the list once so the scroll is seamless; it pauses on hover
+ * and stops under prefers-reduced-motion (the global transition rule in
+ * index.css collapses the animation-duration to 0.001ms).
+ *
+ * Client names only — no service lines or outcome claims attached to real
+ * brands without verified case studies.
  */
 export default function Portfolio() {
+  /* Duplicate the list once for a seamless loop. */
+  const doubled = [...clients, ...clients]
+
   return (
-    <Section id="portfolio" className="py-24 sm:py-32">
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading
-          eyebrow="Portfolio"
-          title={
-            <>
-              Brands we have <GradientText italic>built with</GradientText>.
-            </>
-          }
-          lead="A selection of the teams on our client roster, across commerce, lifestyle, technology and consumer brands."
-        />
-        <dl className="flex gap-8">
-          {[delivered, clientCount].filter(Boolean).map((stat) => (
-            <div key={stat.label}>
-              <dd className="font-display text-2xl font-semibold text-ink">
-                {stat.value}
-                {stat.suffix}
-              </dd>
-              <dt className="mt-0.5 text-[12px] text-muted">{stat.label}</dt>
-            </div>
-          ))}
-        </dl>
+    <Section id="portfolio" className="overflow-hidden py-24 sm:py-32">
+      {/* ── Heading ─────────────────────────────────────────────── */}
+      <div className="mx-auto max-w-2xl text-center">
+        
+        <h2 className="mt-4 font-display text-[2.1rem] leading-[1.1] font-semibold sm:text-[2.6rem]">
+          Trusted by{' '}
+          <GradientText italic>
+            {clientCount?.value}
+            {clientCount?.suffix} Brands
+          </GradientText>
+        </h2>
+        <p className="mt-4 text-[15.5px] leading-relaxed text-body">
+          We&rsquo;ve partnered with ambitious businesses to deliver digital excellence
+          across commerce, lifestyle, technology and consumer brands.
+        </p>
       </div>
 
-      <ul className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {clients.map((client) => (
-          <li
-            key={client}
-            className="gpu-hover flex items-center gap-3 rounded-xl border border-rule bg-snow-raised/85 px-5 py-5 backdrop-blur-sm transition-[transform,border-color] duration-300 hover:-translate-y-0.5 hover:border-signal/35"
-          >
-            <span
-              aria-hidden="true"
-              className="grid size-9 shrink-0 place-items-center rounded-lg bg-signal-soft font-display text-sm font-bold text-signal uppercase"
-            >
-              {client.charAt(0)}
-            </span>
-            <span className="min-w-0 truncate font-display text-[15px] font-semibold text-ink">
-              {client}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {/* ── Marquee strip ───────────────────────────────────────── */}
+      {/* Fade masks on the edges so cards dissolve in and out cleanly. */}
+      <div
+        className="relative mt-14 -mx-5 sm:-mx-8"
+        style={{
+          maskImage:
+            'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+        }}
+        aria-hidden="true"
+      >
+        <div className="marquee-track gap-4 py-2">
+          {doubled.map((client, i) => (
+            <ClientCard key={`${client}-${i}`} name={client} />
+          ))}
+        </div>
+      </div>
+      
     </Section>
+  )
+}
+
+/** Single client pill — initial avatar + name. */
+function ClientCard({ name }) {
+  return (
+    <div className="flex shrink-0 items-center gap-4 rounded-2xl border border-rule bg-snow-raised/90 px-7 py-5 shadow-lift backdrop-blur-sm">
+      <span
+        className="grid size-11 shrink-0 place-items-center rounded-xl bg-signal-soft font-display text-[15px] font-bold text-signal uppercase"
+        aria-hidden="true"
+      >
+        {name.charAt(0)}
+      </span>
+      <span className="font-display text-[16px] font-semibold text-ink">{name}</span>
+    </div>
   )
 }

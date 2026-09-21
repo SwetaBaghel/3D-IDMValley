@@ -30,8 +30,8 @@ const PLANE_THEMES = {
 const PLANE_THEME = 'valley'
 const THEME = PLANE_THEMES[PLANE_THEME]
 
-/** Contact is the last section; the plane arrives as the timeline nears it. */
-const CONTACT_INDEX = 5
+/** Contact is at section index 4 (Home, About, Services, Pricing, Contact, Portfolio). */
+const CONTACT_INDEX = 4
 const FLIGHT_SECONDS = 1.3
 const FLY_IN_SECONDS = 0.8
 const SHAKE_SECONDS = 0.6

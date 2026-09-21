@@ -2,7 +2,7 @@
  * Scroll-linked timeline for the Code Bracket Core — `< • >`.
  *
  * One keyframe per section, index-locked to `sections` in data/siteContent.js
- * (Home, About, Services, Portfolio, Pricing, Contact). Same sampler contract
+ * (Home, About, Services, Pricing, Contact, Portfolio). Same sampler contract
  * as sequence.js: pure, writes into a caller-owned object, allocates nothing.
  *
  * Shared fields (read by Scene.jsx for the shadow and the flare too)
@@ -87,28 +87,7 @@ export const KEYFRAMES = [
     stars: 0,
     nodes: 1,
   },
-  // 3 — Portfolio: eleven nodes, one per client on the roster, spread into a
-  //     constellation behind the heading.
-  {
-    px: 3.0,
-    py: -0.15,
-    pz: -1.8,
-    rx: 0,
-    ry: 0,
-    rz: 0,
-    scale: 1.05,
-    bob: 0.3,
-    spin: 0.14,
-    fade: 0.62,
-    flare: 0.3,
-    shadow: 0.16,
-    open: 0.85,
-    orbit: 1,
-    focus: 0,
-    stars: 1,
-    nodes: 1,
-  },
-  // 4 — Pricing: fades out while stepping up and back. The calculator fills
+  // 3 — Pricing: fades out while stepping up and back. The calculator fills
   //     the viewport and leaves no clear ground, so Pricing and Contact are
   //     treated as focus sections — no 3D competing with a conversion task.
   {
@@ -130,7 +109,7 @@ export const KEYFRAMES = [
     stars: 0,
     nodes: 1,
   },
-  // 5 — Contact Us: brackets close round the core `<•>` and the emblem
+  // 4 — Contact Us: brackets close round the core `<•>` and the emblem
   //     shrinks out of frame, leaving the form alone.
   {
     px: 4.8,

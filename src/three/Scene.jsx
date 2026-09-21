@@ -18,6 +18,7 @@ import {
 } from 'three'
 import * as stageStore from '../state/stageStore'
 import { stage } from '../state/stageStore'
+import AboutLaptop from './AboutLaptop'
 import BracketCore from './BracketCore'
 import * as bracketSequence from './bracketSequence'
 import FocalModels from './FocalModels'
@@ -36,7 +37,7 @@ const MODELS = {
   screen: { Model: FocalModels, sampleTimeline: screenSequence.sampleTimeline },
   bracket: {
     Model: BracketCore,
-    Extras: [HeroScenes, PaperPlane],
+    Extras: [HeroScenes, PaperPlane, AboutLaptop],
     sampleTimeline: bracketSequence.sampleTimeline,
   },
 }

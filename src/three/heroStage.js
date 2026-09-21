@@ -12,6 +12,7 @@ import {
   MeshBasicMaterial,
   MeshPhysicalMaterial,
   PlaneGeometry,
+  RepeatWrapping,
   SphereGeometry,
   SRGBColorSpace,
   TorusGeometry,
@@ -155,6 +156,8 @@ export const hero = {
 function buildMobile(phoneScene) {
   cheapenGlass(phoneScene, 0.1)
   const screen = phoneScreenTexture()
+  screen.wrapS = RepeatWrapping
+  screen.wrapT = RepeatWrapping
   phoneScene.traverse((o) => {
     if (!o.isMesh) return
     for (const m of Array.isArray(o.material) ? o.material : [o.material]) {

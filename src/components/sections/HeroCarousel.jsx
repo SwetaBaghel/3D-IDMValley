@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
-import {
-  clients,
-  hero,
-  heroSlides,
-  HERO_INTERVAL_MS,
-  outcomes,
-} from '../../data/siteContent'
+import { hero, heroSlides, HERO_INTERVAL_MS, outcomes } from '../../data/siteContent'
 import {
   getHeroSlide,
   getStageServerSnapshot,
@@ -16,6 +10,18 @@ import {
 } from '../../state/stageStore'
 import GradientText from '../ui/GradientText'
 import Section from '../ui/Section'
+
+/*
+ * Per-slide accent colours for the outcome stat card.
+ * Index-locked to heroSlides: Mobile, Website, Marketing, CloudOps.
+ * Each picks up the dominant hue of that slide's 3D scene.
+ */
+const SLIDE_ACCENTS = [
+  { num: '#5B21B6', border: 'rgba(124,58,237,0.35)', bg: 'rgba(124,58,237,0.05)' }, // Mobile     — violet
+  { num: '#0D47C7', border: 'rgba(13,71,199,0.35)', bg: 'rgba(13,71,199,0.05)' }, // Website    — signal denim
+  { num: '#B45309', border: 'rgba(245,158,11,0.35)', bg: 'rgba(245,158,11,0.05)' }, // Marketing  — amber
+  { num: '#0E7490', border: 'rgba(8,145,178,0.35)', bg: 'rgba(8,145,178,0.05)' }, // CloudOps   — cyan
+]
 
 /**
  * Hero, carousel edition — the live idmvalley.com pattern: every 3.5 s the
@@ -123,9 +129,16 @@ export default function HeroCarousel() {
 
           {/* Outcome stat, paired to the current slide as on the live site. */}
           <div className="mt-10 flex items-end gap-6">
-            <div className="grid min-w-[15rem] rounded-2xl border border-rule bg-snow-raised/85 px-6 py-5 shadow-lift backdrop-blur-sm">
+            <div
+              className="grid min-w-[15rem] rounded-2xl border px-6 py-5 shadow-lift backdrop-blur-sm transition-[border-color,background-color] duration-500"
+              style={{
+                borderColor: SLIDE_ACCENTS[slide].border,
+                backgroundColor: SLIDE_ACCENTS[slide].bg,
+              }}
+            >
               {heroSlides.map((item, i) => {
                 const stat = outcomes[item.stat]
+                const accent = SLIDE_ACCENTS[i]
                 return (
                   <div
                     key={item.id}
@@ -136,12 +149,13 @@ export default function HeroCarousel() {
                         : 'translate-y-2 opacity-0'
                     }`}
                   >
-                    <p className="font-display text-4xl leading-none font-bold tabular-nums">
-                      <GradientText>
-                        {stat.prefix ?? ''}
-                        {stat.value}
-                        {stat.suffix}
-                      </GradientText>
+                    <p
+                      className="font-display text-4xl leading-none font-bold tabular-nums"
+                      style={{ color: accent.num }}
+                    >
+                      {stat.prefix ?? ''}
+                      {stat.value}
+                      {stat.suffix}
                     </p>
                     <p className="mt-2 text-[13px] text-body">{stat.label}</p>
                   </div>
@@ -203,8 +217,6 @@ export default function HeroCarousel() {
           className="pointer-events-none mx-auto aspect-square w-full max-w-[34rem]"
         />
       </div>
-
-
     </Section>
   )
 }

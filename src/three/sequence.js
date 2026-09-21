@@ -73,25 +73,7 @@ export const KEYFRAMES = [
     flare: 0.55,
     shadow: 0.44,
   },
-  // 3 — Portfolio: rotates square to camera, display morphs to the grid
-  //     schematic, and sets back behind the case cards.
-  {
-    px: 1.45,
-    py: 0.5,
-    pz: -2.3,
-    rx: -0.04,
-    ry: 0.0,
-    rz: 0.0,
-    scale: 1.5,
-    lift: 0.18,
-    terminal: 1.0,
-    bob: 0.25,
-    spin: 0.0,
-    fade: 0.48,
-    flare: 0.3,
-    shadow: 0.2,
-  },
-  // 4 — Pricing: the same terminal, set further back behind the tier grid.
+  // 3 — Pricing: terminal schematic set back behind the tier grid.
   {
     px: 0.0,
     py: 0.0,
@@ -108,7 +90,7 @@ export const KEYFRAMES = [
     flare: 0.42,
     shadow: 0.12,
   },
-  // 5 — Contact Us: minimises out of focus, leaving the lead form alone.
+  // 4 — Contact Us: minimises out of focus, leaving the lead form alone.
   {
     px: 5.2,
     py: -0.35,

@@ -132,7 +132,7 @@ export default function Contact({ planeSlot = false }) {
   const done = status === 'sent'
 
   const field =
-    'w-full rounded-lg border border-rule bg-snow-raised px-3.5 py-3 text-[14.5px] text-ink outline-none transition-colors duration-200 placeholder:text-muted/70 focus:border-signal'
+    'w-full rounded-xl border-0 bg-white/95 px-4 py-3.5 text-[14.5px] text-ink outline-none transition-[box-shadow] duration-200 placeholder:text-muted/60 focus:shadow-[0_0_0_3px_rgba(255,255,255,0.5)]'
 
   return (
     <Section id="contact" className="py-24 sm:py-32">
@@ -150,7 +150,7 @@ export default function Contact({ planeSlot = false }) {
 
           <dl className="mt-10 space-y-6 border-t border-rule pt-8">
             <div>
-              <dt className="text-[11px] font-semibold tracking-[0.2em] text-muted uppercase">
+              <dt className="text-[12px] font-semibold tracking-[0.2em] text-muted uppercase">
                 Phone
               </dt>
               <dd className="mt-1.5">
@@ -163,7 +163,7 @@ export default function Contact({ planeSlot = false }) {
               </dd>
             </div>
             <div>
-              <dt className="text-[11px] font-semibold tracking-[0.2em] text-muted uppercase">
+              <dt className="text-[12px] font-semibold tracking-[0.2em] text-muted uppercase">
                 Email
               </dt>
               <dd className="mt-1.5">
@@ -176,7 +176,7 @@ export default function Contact({ planeSlot = false }) {
               </dd>
             </div>
             <div>
-              <dt className="text-[11px] font-semibold tracking-[0.2em] text-muted uppercase">
+              <dt className="text-[12px] font-semibold tracking-[0.2em] text-muted uppercase">
                 Studio
               </dt>
               <dd className="mt-1.5 text-[14.5px] leading-relaxed text-body">
@@ -205,7 +205,7 @@ export default function Contact({ planeSlot = false }) {
             noValidate
             onSubmit={handleSubmit}
             inert={done}
-            className={`gpu-layer rounded-2xl border border-rule bg-snow-raised/90 p-6 shadow-lift backdrop-blur-md transition-[opacity,transform] duration-500 ease-out sm:p-8 ${
+            className={`gpu-layer rounded-2xl border border-signal/20 bg-gradient-to-br from-signal to-signal-deep p-6 shadow-lift-lg backdrop-blur-md transition-[opacity,transform] duration-500 ease-out sm:p-8 ${
               done
                 ? 'pointer-events-none scale-[0.985] opacity-0'
                 : 'scale-100 opacity-100'
@@ -217,9 +217,9 @@ export default function Contact({ planeSlot = false }) {
                 <div className="sm:col-span-1">
                   <label
                     htmlFor={`${fieldId}-name`}
-                    className="mb-1.5 block text-[13px] font-medium text-ink"
+                    className="mb-2 block text-[12px] font-bold tracking-[0.14em] text-white/80 uppercase"
                   >
-                    Name
+                    Full Name
                   </label>
                   <input
                     id={`${fieldId}-name`}
@@ -230,7 +230,7 @@ export default function Contact({ planeSlot = false }) {
                     aria-invalid={errors.name ? 'true' : undefined}
                     aria-describedby={errors.name ? `${fieldId}-name-error` : undefined}
                     className={field}
-                    placeholder="Your name"
+                    placeholder="Enter your full name"
                   />
                   {errors.name ? (
                     <p
@@ -245,9 +245,9 @@ export default function Contact({ planeSlot = false }) {
                 <div className="sm:col-span-1">
                   <label
                     htmlFor={`${fieldId}-email`}
-                    className="mb-1.5 block text-[13px] font-medium text-ink"
+                    className="mb-2 block text-[12px] font-bold tracking-[0.14em] text-white/80 uppercase"
                   >
-                    Email
+                    Email Address
                   </label>
                   <input
                     id={`${fieldId}-email`}
@@ -259,7 +259,7 @@ export default function Contact({ planeSlot = false }) {
                     aria-invalid={errors.email ? 'true' : undefined}
                     aria-describedby={errors.email ? `${fieldId}-email-error` : undefined}
                     className={field}
-                    placeholder="you@company.com"
+                    placeholder="example@email.com"
                   />
                   {errors.email ? (
                     <p
@@ -274,9 +274,9 @@ export default function Contact({ planeSlot = false }) {
                 <div className="sm:col-span-1">
                   <label
                     htmlFor={`${fieldId}-phone`}
-                    className="mb-1.5 block text-[13px] font-medium text-ink"
+                    className="mb-2 block text-[12px] font-bold tracking-[0.14em] text-white/80 uppercase"
                   >
-                    Phone <span className="text-muted">(optional)</span>
+                    Phone <span className="font-normal normal-case tracking-normal text-white/50">(optional)</span>
                   </label>
                   <input
                     id={`${fieldId}-phone`}
@@ -303,9 +303,9 @@ export default function Contact({ planeSlot = false }) {
                 <div className="sm:col-span-1">
                   <label
                     htmlFor={`${fieldId}-service`}
-                    className="mb-1.5 block text-[13px] font-medium text-ink"
+                    className="mb-2 block text-[12px] font-bold tracking-[0.14em] text-white/80 uppercase"
                   >
-                    Interested in
+                    Service Type
                   </label>
                   <select
                     id={`${fieldId}-service`}
@@ -325,9 +325,9 @@ export default function Contact({ planeSlot = false }) {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor={`${fieldId}-budget`}
-                    className="mb-1.5 block text-[13px] font-medium text-ink"
+                    className="mb-2 block text-[12px] font-bold tracking-[0.14em] text-white/80 uppercase"
                   >
-                    Budget range
+                    Budget Range
                   </label>
                   <select
                     id={`${fieldId}-budget`}
@@ -347,9 +347,9 @@ export default function Contact({ planeSlot = false }) {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor={`${fieldId}-message`}
-                    className="mb-1.5 block text-[13px] font-medium text-ink"
+                    className="mb-2 block text-[12px] font-bold tracking-[0.14em] text-white/80 uppercase"
                   >
-                    What are you trying to solve?
+                    Additional Notes
                   </label>
                   <textarea
                     id={`${fieldId}-message`}
@@ -389,21 +389,21 @@ export default function Contact({ planeSlot = false }) {
               </div>
             </fieldset>
 
-            <div className="mt-7 flex flex-wrap items-center gap-4">
+            <div className="mt-7">
               <button
                 type="submit"
                 disabled={busy || done}
-                className={`gpu-hover rounded-full px-6 py-3.5 font-semibold text-white transition-[background-color,transform] duration-200 ${
+                className={`gpu-hover w-full rounded-xl py-4 font-bold tracking-[0.08em] transition-[background-color,transform,box-shadow,opacity] duration-200 uppercase ${
                   busy
-                    ? 'cursor-progress bg-ink font-mono text-[12.5px] tracking-[0.06em]'
-                    : 'bg-ink text-sm hover:-translate-y-0.5 hover:bg-signal'
+                    ? 'cursor-progress bg-white/20 font-mono text-[12px] tracking-[0.06em] text-white/70'
+                    : 'bg-white text-signal shadow-lift hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-lift-lg'
                 }`}
               >
-                {busy ? 'PROCESSING_SECURE_REQUEST // V1...' : 'Send enquiry'}
+                {busy ? 'PROCESSING_SECURE_REQUEST // V1...' : 'Send Enquiry'}
               </button>
-              <p aria-live="polite" className="text-[13px]">
+              <p aria-live="polite" className="mt-3 text-center text-[13px]">
                 {status === 'invalid' ? (
-                  <span className="text-red-600">Please fix the highlighted fields.</span>
+                  <span className="text-red-300">Please fix the highlighted fields.</span>
                 ) : null}
               </p>
             </div>
@@ -421,7 +421,7 @@ export default function Contact({ planeSlot = false }) {
               </div>
             ) : null}
 
-            <p className="mt-4 text-[12px] leading-relaxed text-muted">
+            <p className="mt-4 text-[12px] leading-relaxed text-white/50">
               Your details are used only to respond to this enquiry.
             </p>
           </form>

@@ -24,7 +24,6 @@ export const sections = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About Us' },
   { id: 'services', label: 'Services' },
-  { id: 'portfolio', label: 'Portfolio' },
   { id: 'pricing', label: 'Pricing' },
   { id: 'contact', label: 'Contact Us' },
 ]
@@ -87,7 +86,7 @@ export const serviceGroups = [
     summary:
       'Positioning, identity systems and the narrative that makes a category remember you.',
     items: ['Branding', 'Creative', 'Content'],
-    metric: '75+ campaigns launched',
+    metric: { value: 75, suffix: '+', label: 'campaigns launched' },
   },
   {
     id: 'tech',
@@ -97,7 +96,7 @@ export const serviceGroups = [
     summary:
       'Product engineering across mobile and web, built to ship and built to hand over.',
     items: ['Mobile Applications', 'Shopify Development', 'Website Designing'],
-    metric: '40+ projects delivered',
+    metric: { value: 40, suffix: '+', label: 'projects delivered' },
   },
   {
     id: 'growth',
@@ -112,7 +111,7 @@ export const serviceGroups = [
       'Social Media Marketing',
       'Email Marketing',
     ],
-    metric: '+23% team productivity growth',
+    metric: { value: 23, prefix: '+', suffix: '%', label: 'team productivity growth' },
   },
   {
     id: 'cloudops',
@@ -122,7 +121,7 @@ export const serviceGroups = [
     summary:
       'Automation, observability and cost control so the platform runs without heroics.',
     items: ['CloudOps', 'AI Automation', 'Process Orchestration'],
-    metric: '85% manpower release',
+    metric: { value: 85, suffix: '%', label: 'manpower release' },
   },
 ]
 

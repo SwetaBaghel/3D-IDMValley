@@ -187,6 +187,27 @@
   }
 }
 
+/* Marquee scroll — clients strip in the Portfolio section. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
 @utility uplink-bar {
   transform-origin: left center;
   will-change: transform;
@@ -225,7 +246,7 @@
   html {
     scroll-behavior: smooth;
     /* Fixed navbar height + breathing room for anchor jumps. */
-    scroll-padding-top: 6.5rem;
+    scroll-padding-top: 8rem;
     -webkit-text-size-adjust: 100%;
   }
 
