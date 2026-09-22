@@ -168,7 +168,7 @@ export default function Navbar() {
           onClick={closeMenu}
         >
           <img
-            src="/logo-removebg-preview.png"
+            src="/logo2.png"
             alt="IDM Valley"
             className="h-18 w-auto object-contain"
           />

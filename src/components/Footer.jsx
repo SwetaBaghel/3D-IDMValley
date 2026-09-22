@@ -108,7 +108,7 @@ export default function Footer({ credits = false }) {
               className="inline-flex items-center"
             >
               <img
-                src="/logo-removebg-preview.png"
+                src="/logo2.png"
                 alt="IDM Valley"
                 className="h-24 w-auto object-contain"
               />
